@@ -14,28 +14,32 @@ Output:
 
 
 class Solution:
-    def backtrack(self, start, end):
-        if (start == end):
-            if self.nums not in self.res:
-                self.res.append(self.nums[:])
-
-        for i in range(start, end):
-            if start != i and self.nums[start] == self.nums[i]:
+    def backtrack(self, tmp):
+        if len(tmp) == self.size:
+            self.res.append(tmp[:])
+        for i in range(self.size):
+            if self.visit[i]:
                 continue
-            self.nums[start], self.nums[i] = self.nums[i], self.nums[start]
-            self.backtrack(start + 1, end)
-            self.nums[start], self.nums[i] = self.nums[i], self.nums[start]
+            # nums[i-1] and nums[i] are the same, so it does not require to add nums[i] to tmp again
+            if i > 0 and self.nums[i] == self.nums[i - 1] and not self.visit[i - 1]:
+                continue
+            self.visit[i] = True    # nums[i] is added to tmp list
+            tmp.append(self.nums[i])
+            self.backtrack(tmp)
+            tmp.pop()
+            self.visit[i] = False
 
     def permuteUnique(self, nums):
         """
         :type nums: List[int]
         :rtype: List[List[int]]
         """
+        self.size = len(nums)
+        self.visit = [False for i in range(self.size)]
         self.nums = nums
+        self.nums.sort()    # the same numbers are nearby
         self.res = []
-        start = 0
-        end = len(nums)
-        self.backtrack(start, end)
+        self.backtrack([])
         return self.res
 
 
