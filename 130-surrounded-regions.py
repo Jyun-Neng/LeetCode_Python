@@ -30,7 +30,7 @@ class Solution:
         :rtype: void Do not return anything, modify board in-place instead.
         """
         h = len(board)
-        w = len(board[0])
+        w = len(board[0]) if board else 0  # check if board is empty
         # surrounded regions will not exist
         # finish this function directly
         if h < 2 or w < 2:
@@ -60,7 +60,7 @@ class Solution:
                 queue.append([x - 1, y])
             if x < w - 1 and board[y][x + 1] == 'O':
                 board[y][x + 1] = '-'
-                queue.append([x - 1, y])
+                queue.append([x + 1, y])
             if y > 0 and board[y - 1][x] == 'O':
                 board[y - 1][x] = '-'
                 queue.append([x, y - 1])
