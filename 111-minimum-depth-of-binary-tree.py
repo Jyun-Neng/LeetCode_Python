@@ -47,7 +47,7 @@ class Solution:
 
 
 if __name__ == "__main__":
-    vals = [3, 9, 20, null, null, 15, 7]
+    vals = [3, 9, 20, None, None, 15, 7]
     root = TreeNode(vals[0])
     node = root
     node.left = TreeNode(vals[1])
