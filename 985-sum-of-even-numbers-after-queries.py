@@ -36,15 +36,11 @@ class Solution(object):
         ans = []
         s = sum(num for num in A if num % 2 == 0)
         for val, idx in queries:
+            if A[idx] % 2 == 0:
+                s -= A[idx]
             A[idx] += val
             if A[idx] % 2 == 0:
-                if val % 2 == 0:
-                    s += val
-                else:
-                    s += A[idx]
-            else:
-                if val % 2 == 1:
-                    s -= (A[idx] - val)
+                s += A[idx]
             ans.append(s)
         return ans
 
