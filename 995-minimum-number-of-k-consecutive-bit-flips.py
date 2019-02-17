@@ -25,14 +25,17 @@ class Solution(object):
         :rtype: int
         """
         length = len(A)
-        cnt = 0
+        cnt = flip = 0
+        table = [0] * length
         for i in range(length):
-            if A[i] == 0:
+            flip ^= table[i]
+            if A[i] ^ flip == 0:
                 if i + K > length:
                     return -1
                 cnt += 1
-                for j in range(i, i + K):
-                    A[j] = 1 if not A[j] else 0
+                flip ^= 1
+                if i + K < length:
+                    table[i + K] ^= 1
         return cnt
 
 
